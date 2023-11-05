@@ -9,7 +9,7 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=9:59:59
 #SBATCH --mem=100GB
-#SBATCH --job-name=7B_he
+#SBATCH --job-name=7B_MBPP
 
 module purge
 
@@ -27,9 +27,8 @@ pred_num=1
 num_seqs_per_iter=1
 decoding_style="greedy"  # Or "sample"
 greedy_decode="True"
-mbpp_path="../data/mbpp.test.zip"
-
-output_path=preds/T${temp}_N${pred_num}
+mbpp_path="../data/mbpp.test.jsonl"
+output_path=preds/MBPP_T${temp}_N${pred_num}
 
 mkdir -p ${output_path}
 echo 'Output path: '$output_path

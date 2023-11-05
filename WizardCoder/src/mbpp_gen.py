@@ -129,7 +129,7 @@ def main():
     tokenizer, model = get_model(base_model=args.model)
     generation_config = GenerationConfig(
         pad_token_id=tokenizer.pad_token_id,
-        do_sample=True,
+        do_sample=False if args.decoding_style=="greedy" else True,
         temperature=args.temperature,
         max_length=args.max_len,
         num_return_sequences=args.num_seqs_per_iter,
@@ -162,11 +162,10 @@ def main():
         for _ in tqdm(range(loops), total=loops, leave=False, ncols=0):
 
             with torch.no_grad():
-                if args.decoding_style == 'sampling':
-                    gen_tokens = model.generate(
-                        **encoding,
-                        generation_config=generation_config
-                    )
+                gen_tokens = model.generate(
+                    **encoding,
+                    generation_config=generation_config
+                )   
 
             if gen_tokens is not None:
                 gen_seqs = tokenizer.batch_decode(gen_tokens, skip_special_tokens=True)

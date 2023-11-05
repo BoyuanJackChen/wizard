@@ -27,7 +27,7 @@ parser.add_argument(
     '--add_prompt',
     action='store_true',
     help='')
-parser.add_argument('--mbpp_path', type=str, help="")
+parser.add_argument('--mbpp_path', type=str, default="../data/mbpp.test.jsonl", help="")
 
 args = parser.parse_args()
 
